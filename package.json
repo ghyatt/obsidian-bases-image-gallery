@@ -1,0 +1,38 @@
+{
+  "name": "obsidian-bases-image-gallery",
+  "version": "0.0.1",
+  "description": "Bases view that produces a zero setup masonry image gallery for Obsidian",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "version": "node version-bump.mjs && git add manifest.json versions.json"
+  },
+  "author": "Gilbert Hyatt",
+  "homepage": "https://github.com/ghyatt/obsidian-bases-image-gallery#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghyatt/obsidian-bases-image-gallery.git"
+  },
+  "keywords": [
+    "image",
+    "gallery",
+    "plugin",
+    "obsidian",
+    "bases",
+    "masonry"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "builtin-modules": "^3.2.0",
+    "esbuild": "0.13.12",
+    "lightgallery": "^2.9.0",
+    "obsidian": "^1.13.1",
+    "tslib": "2.3.1",
+    "typescript": "^4.4.4"
+  }
+}
