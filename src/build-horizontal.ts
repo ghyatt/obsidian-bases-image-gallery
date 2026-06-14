@@ -3,33 +3,24 @@ const buildHorizontal = (
     imagesList: {[key: string]: any},
     settings: {[key: string]: any}
   ) => {
-  // inject the gallery wrapper
+  // Static styling lives in styles.css (.bases-image-gallery-horizontal); only
+  // the user-configurable values are passed through as CSS custom properties.
   const gallery = container.createEl('div')
   gallery.addClass('grid-wrapper')
-  gallery.style.display = 'flex'
-  gallery.style.flexWrap = 'wrap'
-  gallery.style.marginRight = `-${settings.gutter}px`
+  gallery.addClass('bases-image-gallery-horizontal')
+  gallery.style.setProperty('--big-gutter', `${settings.gutter}px`)
+  gallery.style.setProperty('--big-radius', `${settings.radius}px`)
+  gallery.style.setProperty('--big-row-height', `${settings.height}px`)
 
-  // inject and style images
+  // inject images
   imagesList.forEach((file: {[key: string]: string}) => {
     const figure = gallery.createEl('figure')
     figure.addClass('grid-item')
-    figure.style.margin = `0px ${settings.gutter}px ${settings.gutter}px 0px`
-    figure.style.width = 'auto'
-    figure.style.height = `${settings.height}px`
-    figure.style.borderRadius = `${settings.radius}px`
-    figure.style.flex = '1 0 auto'
-    figure.style.overflow = 'hidden'
-    figure.style.cursor = 'pointer'
     figure.setAttribute('data-name', file.name)
     figure.setAttribute('data-folder', file.folder)
     figure.setAttribute('data-src', file.uri)
 
     const img = figure.createEl('img')
-    img.style.objectFit = 'cover'
-    img.style.width = '100%'
-    img.style.height = '100%'
-    img.style.borderRadius = '0px'
     img.src = file.uri
   })
 

@@ -926,3 +926,55 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
   white-space: nowrap;
   opacity: 0.85;
 }
+
+/* ----------------------------------------------------------------------------
+   Masonry layouts (Bases Image Gallery)
+   Static styling moved out of the build-*.ts modules; the user-configurable
+   values arrive as CSS custom properties set on the wrapper:
+     --big-columns, --big-gutter, --big-radius, --big-row-height
+---------------------------------------------------------------------------- */
+
+/* Vertical masonry — CSS columns */
+.bases-image-gallery-vertical {
+  line-height: 0;
+  column-count: var(--big-columns, 3);
+  column-gap: var(--big-gutter, 8px);
+}
+
+.bases-image-gallery-vertical .grid-item {
+  margin-bottom: var(--big-gutter, 8px);
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.bases-image-gallery-vertical .grid-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--big-radius, 0px);
+}
+
+/* Horizontal masonry — flex rows */
+.bases-image-gallery-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-1 * var(--big-gutter, 8px));
+}
+
+.bases-image-gallery-horizontal .grid-item {
+  flex: 1 0 auto;
+  width: auto;
+  height: var(--big-row-height, 260px);
+  margin: 0 var(--big-gutter, 8px) var(--big-gutter, 8px) 0;
+  overflow: hidden;
+  border-radius: var(--big-radius, 0px);
+  cursor: pointer;
+}
+
+.bases-image-gallery-horizontal .grid-item img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
