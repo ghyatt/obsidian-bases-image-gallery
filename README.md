@@ -23,9 +23,19 @@ This is based off the work by [Luca Orio](https://lucaorio.com) — [Obsidian Im
 - Images somewhere in your vault that you want to display.
 
 ## Installation
-Obsidian Bases Image Gallery can be installed via [Obsidian BRAT](https://github.com/TfTHacker/obsidian42-brat) from [GitHub](https://github.com/ghyatt/obsidian-bases-image-gallery), or as a [community plugin](https://help.obsidian.md/Advanced+topics/Community+plugins#Discover+and+install+community+plugins) once approved.
 
-> **Beta testing?** See [BETA-TESTING.md](BETA-TESTING.md) for step-by-step BRAT install, usage, what to test, and how to report feedback.
+### Via BRAT (current beta)
+The plugin is in beta and not yet in the community catalog, so install it with [BRAT](https://github.com/TfTHacker/obsidian42-brat):
+
+1. In Obsidian, go to Settings → **Community plugins** → **Browse**, then install and enable **BRAT**.
+2. Settings → **BRAT** → **Add beta plugin**.
+3. Enter the repository `ghyatt/obsidian-bases-image-gallery` and click **Add Plugin**.
+4. Enable **Bases Image Gallery** under Settings → Community plugins.
+
+BRAT auto-updates you to each new beta release. For full usage and testing notes, see [BETA-TESTING.md](BETA-TESTING.md).
+
+### Community plugin (once approved)
+Once accepted into the catalog, search for **Bases Image Gallery** in Settings → [Community plugins](https://help.obsidian.md/Advanced+topics/Community+plugins#Discover+and+install+community+plugins) → Browse.
 
 ## Setup
 Create an Obsidian Base (or place a Base in a note), and select the **"Image gallery"** view.
@@ -77,6 +87,10 @@ All options are set from the Base **view configuration** menu — there is no YA
 A note about ordering in the **vertical** layout: until a [true masonry layout](https://drafts.csswg.org/css-grid-3/) is available for native `css` grids, the visual ordering is approximate — elements flow top-to-bottom *within each column* rather than strictly left-to-right (see [this article](https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout) for why). For most galleries this is fine; exact ordering is a known limitation of the CSS-column approach. The horizontal layout orders more intuitively but is still being fixed (see the bug note above).
 
 ## Changelog
+0.1.1
+  - Renamed the plugin `id` to `bases-image-gallery` for community-catalog compliance (ids cannot contain "obsidian").
+  - Documented BRAT installation in the README.
+
 0.1.0
   - initial release.
 
