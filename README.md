@@ -1,4 +1,4 @@
-![Obsidian Bases Image Gallery](oig-header.jpg)
+![Obsidian Bases Image Gallery](assets/oig-header.jpg)
 
 # Obsidian Bases Image Gallery
 Obsidian Bases Image Gallery is a zero setup masonry image gallery for [Obsidian](https://obsidian.md/).
@@ -49,7 +49,7 @@ In *[Live Preview](https://help.obsidian.md/Live+preview+update)* mode, the gall
 ![gallery screen](assets/obg-masonry.jpg)
 
 - Clicking on an image will take you to a lightbox style screen.  
-![ligbtbox screen](assets/obg-lighthouse.jpG)
+![ligbtbox screen](assets/obg-lighthouse.jpg)
 
 - In desktop you can click the X icon, or in mobile & desktop you can double click to exit back to the original masonry image display.
 
