@@ -23,19 +23,17 @@ This is based off the work by [Luca Orio](https://lucaorio.com) — [Obsidian Im
 - Images somewhere in your vault that you want to display.
 
 ## Installation
+### Community plugin
+Search for **Bases Image Gallery** in Settings → [Community plugins](https://help.obsidian.md/Advanced+topics/Community+plugins#Discover+and+install+community+plugins) → Browse.
 
-### Via BRAT (current beta)
-The plugin is in beta and not yet in the community catalog, so install it with [BRAT](https://github.com/TfTHacker/obsidian42-brat):
-
+### BRAT (for beta testing newest features)
+Install it with [BRAT](https://github.com/TfTHacker/obsidian42-brat):
 1. In Obsidian, go to Settings → **Community plugins** → **Browse**, then install and enable **BRAT**.
 2. Settings → **BRAT** → **Add beta plugin**.
 3. Enter the repository `ghyatt/obsidian-bases-image-gallery` and click **Add Plugin**.
 4. Enable **Bases Image Gallery** under Settings → Community plugins.
 
 BRAT auto-updates you to each new beta release. For full usage and testing notes, see [BETA-TESTING.md](BETA-TESTING.md).
-
-### Community plugin (once approved)
-Once accepted into the catalog, search for **Bases Image Gallery** in Settings → [Community plugins](https://help.obsidian.md/Advanced+topics/Community+plugins#Discover+and+install+community+plugins) → Browse.
 
 ## Setup
 Create an Obsidian Base (or place a Base in a note), and select the **"Image gallery"** view.
@@ -58,7 +56,11 @@ To create a dynamic gallery, add a filter to select which images to show. The co
 
 The gallery renders directly in the Base view as soon as the Base's filters select one or more images — there is no code block to trigger and no preview mode to switch to. Add or remove a matching image in your vault and the gallery updates live.
 
+##### Orientation Vertical:
 ![gallery screen](assets/obg-masonry.jpg)
+
+##### Orientation Horizontal:
+![horizontal gallery screen](assets/obg-horizontal.jpg)
 
 - Clicking on an image will take you to a lightbox style screen.  
 ![lightbox screen](assets/obg-lighthouse.jpg)
