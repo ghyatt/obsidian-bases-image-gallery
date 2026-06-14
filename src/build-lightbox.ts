@@ -70,12 +70,12 @@ const infoPanel = (gallery: HTMLElement, imagesList: {[key: string]: any}) => {
     const update = () => {
       const file = imagesList[galleryInstance.index]
       if (!file) return
-      panel.innerHTML = ''
+      panel.empty()
       const rows = [file.name, currentDimensions(), formatSize(file.size), formatDate(file.ctime)]
       rows.filter(Boolean).forEach((text, idx) => {
         const row = document.createElement('div')
         row.className = idx === 0 ? 'bases-image-gallery-info-name' : 'bases-image-gallery-info-row'
-        row.textContent = text // textContent, not innerHTML — filenames are untrusted
+        row.textContent = text // textContent (not innerHTML) — filenames are untrusted
         panel.appendChild(row)
       })
     }

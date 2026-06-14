@@ -1,9 +1,9 @@
 {
   "id": "bases-image-gallery",
   "name": "Bases Image Gallery",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "minAppVersion": "1.10.2",
-  "description": "Bases view that produces a zero setup masonry image gallery for Obsidian",
+  "description": "A zero-setup masonry image gallery view for Bases.",
   "author": "Gilbert Hyatt",
   "authorUrl": "https://github.com/ghyatt",
   "isDesktopOnly": false
