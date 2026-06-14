@@ -1,7 +1,9 @@
+import type { GalleryImage, GallerySettings } from './types'
+
 const buildHorizontal = (
     container: HTMLElement,
-    imagesList: {[key: string]: any},
-    settings: {[key: string]: any}
+    imagesList: GalleryImage[],
+    settings: GallerySettings
   ) => {
   // Static styling lives in styles.css (.bases-image-gallery-horizontal); only
   // the user-configurable values are passed through as CSS custom properties.
@@ -13,7 +15,7 @@ const buildHorizontal = (
   gallery.style.setProperty('--big-row-height', `${settings.height}px`)
 
   // inject images
-  imagesList.forEach((file: {[key: string]: string}) => {
+  imagesList.forEach((file) => {
     const figure = gallery.createEl('figure')
     figure.addClass('grid-item')
     figure.setAttribute('data-name', file.name)

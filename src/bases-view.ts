@@ -3,6 +3,7 @@ import buildHorizontal from './build-horizontal'
 import buildVertical from './build-vertical'
 import buildLightbox from './build-lightbox'
 import renderError from './render-error'
+import type { GalleryImage, GallerySettings } from './types'
 
 export const VIEW_TYPE = 'image-gallery'
 
@@ -17,13 +18,13 @@ export class GalleryBasesView extends BasesView {
 
   private viewContainerEl: HTMLElement
   private gallery: HTMLElement | null = null
-  private lightbox: any = null
+  private lightbox: ReturnType<typeof buildLightbox> | null = null
 
   constructor(controller: QueryController, parentEl: HTMLElement) {
     super(controller)
     this.viewContainerEl = parentEl.createDiv('bases-image-gallery-view')
-    // Guard against flex/shrink-to-fit parents collapsing the column layout
-    this.viewContainerEl.style.width = '100%'
+    // the width:100% guard (against flex/shrink-to-fit parents collapsing the
+    // column layout) lives in styles.css
   }
 
   onDataUpdated(): void {
@@ -50,11 +51,10 @@ export class GalleryBasesView extends BasesView {
     }
 
     if (images.length > visible.length) {
-      const note = this.viewContainerEl.createEl('p', {
+      this.viewContainerEl.createEl('p', {
         text: `Showing ${visible.length} of ${images.length} images — narrow the Base filters to see the rest.`,
+        cls: 'bases-image-gallery-notice',
       })
-      note.style.color = 'var(--text-muted)'
-      note.style.fontSize = 'var(--font-smaller)'
     }
 
     this.lightbox = buildLightbox(this.gallery, visible, this.app)
@@ -79,7 +79,7 @@ export class GalleryBasesView extends BasesView {
   // Same keys and defaults as the original code-block settings, read from the
   // Bases view config instead of YAML. `path`, `sortby`, and `sort` are gone:
   // the Base's filters select the files and its sort order is preserved.
-  private readSettings(): { [key: string]: any } {
+  private readSettings(): GallerySettings {
     const num = (key: string, fallback: number): number => {
       const value = Number(this.config.get(key))
       return Number.isFinite(value) ? value : fallback
@@ -106,8 +106,8 @@ export class GalleryBasesView extends BasesView {
   // Each Bases entry is itself an image file; the Base does the selecting.
   // Non-image entries are skipped silently as a safety net. Entry order is
   // the Base's own (presorted) order.
-  private getImagesList(): { name: string; folder: string; uri: string; size: number; ctime: number }[] {
-    const images: { name: string; folder: string; uri: string; size: number; ctime: number }[] = []
+  private getImagesList(): GalleryImage[] {
+    const images: GalleryImage[] = []
 
     for (const entry of this.data.data) {
       const file = entry.file

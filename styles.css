@@ -978,3 +978,33 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
   height: 100%;
   border-radius: 0;
 }
+
+/* ----------------------------------------------------------------------------
+   View container, notice, error, and mobile control hiding
+   (moved out of the *.ts modules to satisfy no-static-styles-assignment)
+---------------------------------------------------------------------------- */
+.bases-image-gallery-view {
+  /* guard against flex/shrink-to-fit parents collapsing the column layout */
+  width: 100%;
+}
+
+.bases-image-gallery-notice {
+  color: var(--text-muted);
+  font-size: var(--font-smaller);
+}
+
+.bases-image-gallery-error {
+  padding: 2px 16px;
+  border-radius: 4px;
+  background-color: #e50914;
+  color: #fff;
+  font-weight: bolder;
+}
+
+/* Hide redundant lightbox controls on mobile (close X, prev, next); closing is
+   via double-tap. Replaces the previous inline display:none assignment. */
+.is-mobile .lg-close,
+.is-mobile .lg-prev,
+.is-mobile .lg-next {
+  display: none;
+}

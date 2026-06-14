@@ -87,6 +87,9 @@ All options are set from the Base **view configuration** menu — there is no YA
 A note about ordering in the **vertical** layout: until a [true masonry layout](https://drafts.csswg.org/css-grid-3/) is available for native `css` grids, the visual ordering is approximate — elements flow top-to-bottom *within each column* rather than strictly left-to-right (see [this article](https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout) for why). For most galleries this is fine; exact ordering is a known limitation of the CSS-column approach. The horizontal layout orders more intuitively but is still being fixed (see the bug note above).
 
 ## Changelog
+0.1.4
+  - Catalog review fixes: moved remaining inline styles into `styles.css` (error box, notice, view width, mobile control hiding); standard MIT `LICENSE`; tighter typing (removed `any`); use element `ownerDocument`; dropped the `builtin-modules` dependency.
+
 0.1.3
   - Moved masonry layout styling from JavaScript into `styles.css` (configurable values passed as CSS custom properties).
 

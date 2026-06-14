@@ -1,21 +1,40 @@
 import { App, Platform } from 'obsidian'
-import Lightbox from 'lightgallery';
+import Lightbox from 'lightgallery'
 import LightboxThumbs from 'lightgallery/plugins/thumbnail'
+import type { GalleryImage } from './types'
 
-const lightbox = (gallery: HTMLElement, imagesList: {[key: string]: any}, app: App) => {
-  // attach a custom button to open original image, only on desktop
+// Minimal typing for the lightGallery instance surface we use; its published
+// types don't cleanly expose the lgQuery helpers we rely on.
+interface LgQuery {
+  append: (child: string | HTMLElement) => void
+  find: (selector: string) => LgQuery
+  get: () => HTMLElement
+  on: (events: string, listener: (e: Event) => void) => void
+}
+interface LgInstance {
+  index: number
+  outer: LgQuery
+  closeGallery: () => void
+}
+
+const lgInstance = (event: Event): LgInstance =>
+  (event as CustomEvent<{ instance: LgInstance }>).detail.instance
+
+const lightbox = (gallery: HTMLElement, imagesList: GalleryImage[], app: App) => {
+  // attach a custom button to open the original image, only on desktop
   if (Platform.isDesktop) globalSearchBtn(gallery, imagesList, app)
 
   // double-click the open image to close, mirroring the Escape key. Especially
-  // useful on mobile, where the default close (X) button is hidden below.
+  // useful on mobile, where the default close (X) button is hidden via CSS.
   closeOnDoubleClick(gallery)
 
   // transparent info overlay (top-right, below the toolbar) showing the
   // current image's filename, dimensions, size, and creation date
   infoPanel(gallery, imagesList)
 
-  // setup a lightbox for the gallery
-  const galleryLightbox = Lightbox(gallery, {
+  // setup a lightbox for the gallery. Redundant mobile controls (close/prev/
+  // next) are hidden via the `.is-mobile` rules in styles.css.
+  return Lightbox(gallery, {
     plugins: [LightboxThumbs],
     counter: false,
     download: false,
@@ -24,16 +43,6 @@ const lightbox = (gallery: HTMLElement, imagesList: {[key: string]: any}, app: A
     mode: 'lg-fade',
     licenseKey: '622E672F-760D49DC-980EF90F-B7A9DCB0',
   })
-
-  // if we are on mobile, make sure to remove unnecessary controls
-  if (Platform.isIosApp || Platform.isAndroidApp) {
-    const elements:NodeListOf<HTMLElement> = document.querySelectorAll('.lg-close, .lg-prev, .lg-next')
-    for (const element of elements) {
-      element.style.display = 'none'
-    }
-  }
-
-  return galleryLightbox
 }
 
 // human-readable file size, e.g. 1536000 -> "1.5 MB"
@@ -49,14 +58,14 @@ const formatSize = (bytes: number): string => {
 const formatDate = (ms: number): string =>
   Number.isFinite(ms) ? new Date(ms).toLocaleDateString() : ''
 
-const infoPanel = (gallery: HTMLElement, imagesList: {[key: string]: any}) => {
-  gallery.addEventListener('lgInit', (event: CustomEvent) => {
-    const galleryInstance = event.detail.instance
+const infoPanel = (gallery: HTMLElement, imagesList: GalleryImage[]) => {
+  gallery.addEventListener('lgInit', (event: Event) => {
+    const galleryInstance = lgInstance(event)
 
     // styled in styles.css: absolute top-right, below the toolbar; pointer-events
     // none so it never intercepts the dblclick-to-close or nav. Lives inside
     // .lg-outer, so it is torn down with the lightbox automatically.
-    const panel = document.createElement('div')
+    const panel = gallery.ownerDocument.createElement('div')
     panel.className = 'bases-image-gallery-info'
     galleryInstance.outer.append(panel)
 
@@ -73,7 +82,7 @@ const infoPanel = (gallery: HTMLElement, imagesList: {[key: string]: any}) => {
       panel.empty()
       const rows = [file.name, currentDimensions(), formatSize(file.size), formatDate(file.ctime)]
       rows.filter(Boolean).forEach((text, idx) => {
-        const row = document.createElement('div')
+        const row = gallery.ownerDocument.createElement('div')
         row.className = idx === 0 ? 'bases-image-gallery-info-name' : 'bases-image-gallery-info-row'
         row.textContent = text // textContent (not innerHTML) — filenames are untrusted
         panel.appendChild(row)
@@ -91,10 +100,10 @@ const infoPanel = (gallery: HTMLElement, imagesList: {[key: string]: any}) => {
 const closeOnDoubleClick = (gallery: HTMLElement) => {
   // lightGallery hands us the instance + its DOM via the lgInit event; the
   // listener must be registered before Lightbox() runs (same as the toolbar
-  // button above), since lgInit fires during construction.
-  gallery.addEventListener('lgInit', (event: CustomEvent) => {
-    const galleryInstance = event.detail.instance
-    galleryInstance.outer.on('dblclick', (e: MouseEvent) => {
+  // button below), since lgInit fires during construction.
+  gallery.addEventListener('lgInit', (event: Event) => {
+    const galleryInstance = lgInstance(event)
+    galleryInstance.outer.on('dblclick', (e: Event) => {
       // ignore double-clicks on the controls so closing only triggers on the
       // image or backdrop, not the nav arrows, toolbar, or thumbnail strip
       const target = e.target as HTMLElement
@@ -104,18 +113,18 @@ const closeOnDoubleClick = (gallery: HTMLElement) => {
   })
 }
 
-const globalSearchBtn = (gallery: HTMLElement, imagesList: {[key: string]: any}, app: App) => {
-  gallery.addEventListener('lgInit', (event: CustomEvent) => {
-    const galleryInstance = event.detail.instance
-    const btn ='<button type="button" id="btn-glob-search" class="lg-icon btn-glob-search"></button>'
+const globalSearchBtn = (gallery: HTMLElement, imagesList: GalleryImage[], app: App) => {
+  gallery.addEventListener('lgInit', (event: Event) => {
+    const galleryInstance = lgInstance(event)
+    const btn = '<button type="button" id="btn-glob-search" class="lg-icon btn-glob-search"></button>'
     galleryInstance.outer.find('.lg-toolbar').append(btn)
 
     galleryInstance.outer.find('#btn-glob-search').on('click', () => {
-      const index = galleryInstance.index
-      const selected = imagesList[index]
-      app.workspace.openLinkText('', `${selected.folder}/${selected.name}`, true, {active: true})
+      const selected = imagesList[galleryInstance.index]
+      if (!selected) return
+      void app.workspace.openLinkText('', `${selected.folder}/${selected.name}`, true, { active: true })
       galleryInstance.closeGallery()
-    });
+    })
   })
 }
 
