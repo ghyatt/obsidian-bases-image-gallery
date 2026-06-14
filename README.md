@@ -79,14 +79,17 @@ All options are set from the Base **view configuration** menu — there is no YA
 
 ## Notes
 - Right now the photo date is the filesystem creation date, if people request it I will add in the photo EXIF data.
-- Vertical layout works great and is the default. The horizontal layout currently renders in an unexpected way — it's a known bug being worked on, so stick with vertical for now.
+- Vertical layout is the default. The horizontal layout renders justified rows — images keep their aspect ratio and each row fills the container width.
 - Make sure the images to embed have a reasonable size: generating a masonry with 60 4k photos will most likely slow down the app to a crawl!
 - The images display can be from anywhere in your vault, just write Bases filter statements to select
 - As mentioned in the [Requirements](#requirements) section, only local images are accepted. This plugin was designed with a specific use case in mind: create a gallery from a folder of images with as little setup as possible.
 
-A note about ordering in the **vertical** layout: until a [true masonry layout](https://drafts.csswg.org/css-grid-3/) is available for native `css` grids, the visual ordering is approximate — elements flow top-to-bottom *within each column* rather than strictly left-to-right (see [this article](https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout) for why). For most galleries this is fine; exact ordering is a known limitation of the CSS-column approach. The horizontal layout orders more intuitively but is still being fixed (see the bug note above).
+A note about ordering in the **vertical** layout: until a [true masonry layout](https://drafts.csswg.org/css-grid-3/) is available for native `css` grids, the visual ordering is approximate — elements flow top-to-bottom *within each column* rather than strictly left-to-right (see [this article](https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout) for why). For most galleries this is fine; exact ordering is a known limitation of the CSS-column approach. The horizontal layout orders left-to-right more intuitively (justified rows) if strict ordering matters to you.
 
 ## Changelog
+0.1.5
+  - Fixed the horizontal layout: images now render as justified rows that keep their aspect ratio and fill the row width (was inherited broken from the original plugin).
+
 0.1.4
   - Catalog review fixes: moved remaining inline styles into `styles.css` (error box, notice, view width, mobile control hiding); standard MIT `LICENSE`; tighter typing (removed `any`); use element `ownerDocument`; dropped the `builtin-modules` dependency.
 

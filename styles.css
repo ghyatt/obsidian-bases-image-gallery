@@ -963,8 +963,10 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
 }
 
 .bases-image-gallery-horizontal .grid-item {
-  flex: 1 0 auto;
-  width: auto;
+  /* width is proportional to the image aspect ratio (--aspect, set on load) so
+     rows justify with true proportions; flex-grow fills the row edge-to-edge */
+  flex-grow: var(--aspect, 1.5);
+  flex-basis: calc(var(--aspect, 1.5) * var(--big-row-height, 260px));
   height: var(--big-row-height, 260px);
   margin: 0 var(--big-gutter, 8px) var(--big-gutter, 8px) 0;
   overflow: hidden;

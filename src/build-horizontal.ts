@@ -23,6 +23,14 @@ const buildHorizontal = (
     figure.setAttribute('data-src', file.uri)
 
     const img = figure.createEl('img')
+    // The aspect ratio isn't known until the image decodes; once it loads, pass
+    // it to the CSS as a custom property so the row justifies with true
+    // proportions (flex-grow + flex-basis scale off --aspect in styles.css).
+    img.addEventListener('load', () => {
+      if (img.naturalHeight > 0) {
+        figure.style.setProperty('--aspect', `${img.naturalWidth / img.naturalHeight}`)
+      }
+    })
     img.src = file.uri
   })
 
