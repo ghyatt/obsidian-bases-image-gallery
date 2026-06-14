@@ -6,3 +6,6 @@ main.js
 *.map
 data.json
 .DS_Store
+
+# internal review notes (not part of the plugin)
+plugin_review-*.md
