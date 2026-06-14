@@ -25,6 +25,8 @@ This is based off the work by [Luca Orio](https://lucaorio.com) — [Obsidian Im
 ## Installation
 Obsidian Bases Image Gallery can be installed via [Obsidian BRAT](https://github.com/TfTHacker/obsidian42-brat) from [GitHub](https://github.com/ghyatt/obsidian-bases-image-gallery), or as a [community plugin](https://help.obsidian.md/Advanced+topics/Community+plugins#Discover+and+install+community+plugins) once approved.
 
+> **Beta testing?** See [BETA-TESTING.md](BETA-TESTING.md) for step-by-step BRAT install, usage, what to test, and how to report feedback.
+
 ## Setup
 Create an Obsidian Base (or place a Base in a note), and select the **"Image gallery"** view.
 To create a dynamic gallery, add a filter to select which images to show. The configuration Obsidian generates will look something like the examples below.
