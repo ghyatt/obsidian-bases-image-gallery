@@ -34,6 +34,11 @@ const buildHorizontal = (
     img.src = file.uri
   })
 
+  // Trailing spacer: absorbs the leftover space in the last (partial) row so its
+  // images keep their natural size instead of stretching to fill the width.
+  // It is not a `.grid-item`, so the lightbox selector ignores it.
+  gallery.createEl('div', { cls: 'bases-image-gallery-hspacer' })
+
   return gallery
 }
 

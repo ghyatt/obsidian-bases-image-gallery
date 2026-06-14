@@ -87,6 +87,9 @@ All options are set from the Base **view configuration** menu — there is no YA
 A note about ordering in the **vertical** layout: until a [true masonry layout](https://drafts.csswg.org/css-grid-3/) is available for native `css` grids, the visual ordering is approximate — elements flow top-to-bottom *within each column* rather than strictly left-to-right (see [this article](https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout) for why). For most galleries this is fine; exact ordering is a known limitation of the CSS-column approach. The horizontal layout orders left-to-right more intuitively (justified rows) if strict ordering matters to you.
 
 ## Changelog
+0.1.6
+  - Horizontal layout: the last (partial) row no longer over-stretches its images — a trailing spacer absorbs the leftover width so they keep their natural size.
+
 0.1.5
   - Fixed the horizontal layout: images now render as justified rows that keep their aspect ratio and fill the row width (was inherited broken from the original plugin).
 

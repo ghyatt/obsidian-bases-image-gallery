@@ -981,6 +981,18 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
   border-radius: 0;
 }
 
+/* Trailing spacer (last-row refinement): a high flex-grow with zero basis/height
+   soaks up the leftover space in the final partial row so its images keep their
+   natural size instead of stretching. align-self avoids it adding a visible row. */
+.bases-image-gallery-horizontal .bases-image-gallery-hspacer {
+  flex-grow: 999999;
+  flex-basis: 0;
+  height: 0;
+  align-self: flex-start;
+  margin: 0;
+  pointer-events: none;
+}
+
 /* ----------------------------------------------------------------------------
    View container, notice, error, and mobile control hiding
    (moved out of the *.ts modules to satisfy no-static-styles-assignment)

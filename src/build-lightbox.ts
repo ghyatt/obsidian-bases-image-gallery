@@ -36,6 +36,9 @@ const lightbox = (gallery: HTMLElement, imagesList: GalleryImage[], app: App) =>
   // next) are hidden via the `.is-mobile` rules in styles.css.
   return Lightbox(gallery, {
     plugins: [LightboxThumbs],
+    // only real image items are slides — excludes the horizontal layout's
+    // trailing spacer so indices stay aligned with imagesList
+    selector: '.grid-item',
     counter: false,
     download: false,
     thumbnail: true,
