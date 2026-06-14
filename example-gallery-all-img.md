@@ -1,5 +1,5 @@
 
-# Example of Obsidian Bases Image Gallery ebbed in a note
+# Example of Obsidian Bases Image Gallery embedded in a note
 
 ```base
 filters:

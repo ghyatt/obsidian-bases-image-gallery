@@ -2,6 +2,7 @@
 *.iml
 .idea
 node_modules
+main.js
 *.map
 data.json
 .DS_Store
